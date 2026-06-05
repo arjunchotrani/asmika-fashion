@@ -51,6 +51,8 @@ export interface Product {
   color_required?: boolean
   fabric?: string | null
   size?: string | null
+  seo_description?: string | null
+  meta_keywords?: string | null
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
