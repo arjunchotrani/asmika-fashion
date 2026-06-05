@@ -13,25 +13,19 @@ import formatterRouter from './routes/formatter'
 import uploadRouter from './routes/uploads'
 import type { Env } from './config/env'
 
-const ALLOWED_ORIGINS = [
-  'https://asmikafashion.com',
-  'https://www.asmikafashion.com',
-  'https://admin.asmikafashion.com',
-  // Cloudflare Pages preview domains
-  'https://asmika-fashion.pages.dev',
-  'https://asmika-admin.pages.dev',
-  // Local development
-  'http://localhost:3000',
-  'http://localhost:3001',
-  'http://127.0.0.1:3000',
-  'http://127.0.0.1:3001',
+const ALLOWED_ORIGIN_PATTERNS = [
+  /^https:\/\/(www\.)?asmikafashion\.com$/,
+  /^https:\/\/admin\.asmikafashion\.com$/,
+  /^https:\/\/asmika[-\w]*\.vercel\.app$/,
+  /^https:\/\/asmika[-\w]*\.pages\.dev$/,
+  /^http:\/\/(localhost|127\.0\.0\.1):(3000|3001)$/,
 ]
 
 const app = new Hono<{ Bindings: Env }>()
 
 app.use('*', logger())
 app.use('*', cors({
-  origin: (origin) => ALLOWED_ORIGINS.includes(origin) ? origin : null,
+  origin: (origin) => ALLOWED_ORIGIN_PATTERNS.some(p => p.test(origin)) ? origin : null,
   allowHeaders: ['Content-Type', 'Authorization'],
   allowMethods: ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE'],
   maxAge: 86400,
