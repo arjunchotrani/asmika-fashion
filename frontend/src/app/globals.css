@@ -1,0 +1,417 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --font-display: var(--font-cinzel);
+
+  --color-brand-black: var(--brand-black);
+  --color-brand-ivory: var(--brand-ivory);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-accent: var(--brand-accent);
+}
+
+/* ── Dark Theme (Default) ─────────────────────────────────────── */
+:root {
+  --brand-black: #0A0A0A;
+  --brand-ivory: #FDFCF8;
+  --brand-gold: #D4AF37;
+  --brand-accent: #C5A028;
+
+  /* Semantic layout tokens */
+  --bg-primary:      var(--brand-black);
+  --bg-subtle:       #0F0E0D;          /* slight surface lift for alternating sections */
+  --text-primary:    var(--brand-ivory);
+  --text-secondary:  rgba(253, 252, 248, 0.60);
+  --text-muted:      rgba(253, 252, 248, 0.35);
+  --text-ghost:      rgba(253, 252, 248, 0.20);
+  --border-color:    rgba(212, 175, 55, 0.20);
+  --glass-bg:        rgba(10, 10, 10, 0.72);
+
+  /* Card & surface tokens */
+  --card-bg:         rgba(255, 255, 255, 0.04);
+  --skeleton-base:   rgba(255, 255, 255, 0.06);
+
+  /* Badge tokens (always on images / surfaces) */
+  --badge-bg:        rgba(253, 252, 248, 0.92);
+  --badge-text:      #0A0A0A;
+  --badge-on-image:  rgba(253, 252, 248, 0.10);
+
+  /* Hero-specific tokens */
+  --hero-gold-accent:  rgba(212, 175, 55, 0.45);
+  --hero-ambient-1:    rgba(212, 175, 55, 0.045);
+  --hero-ambient-2:    rgba(140, 40, 50, 0.10);
+
+  /* Lightbox always stays dark */
+  --lightbox-bg: rgba(10, 10, 10, 0.95);
+
+  --font-inter:    "Inter", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+}
+
+/* ── Light Theme ───────────────────────────────────────────────── */
+/*
+   Design philosophy: warm atelier, golden-hour light, editorial parchment.
+   NOT champagne SaaS. Think Dior archive, Hermès craftsman, Saint Laurent editorial.
+*/
+[data-theme='light'] {
+  /* Brand palette — warm, deep, premium — nothing cold or flat */
+  --brand-black:  #1C1814;           /* warm near-black */
+  --brand-ivory:  #F8F3EA;           /* rich warm ivory */
+  --brand-gold:   #9E6E24;           /* deep amber-gold — reads beautifully on warm cream */
+  --brand-accent: #7A4A16;           /* deep sienna */
+
+  /* Layout */
+  --bg-primary:      #F8F3EA;        /* warm ivory anchor */
+  --bg-subtle:       #EFE5D2;        /* richer parchment — for BrandStory, footer rhythm */
+
+  /* Typography — warm charcoal hierarchy */
+  --text-primary:    #1C1814;
+  --text-secondary:  rgba(28, 24, 20, 0.70);
+  --text-muted:      rgba(28, 24, 20, 0.50);
+  --text-ghost:      rgba(28, 24, 20, 0.22);
+
+  /* Borders — warm gold, properly present */
+  --border-color:    rgba(158, 110, 36, 0.28);
+  --glass-bg:        rgba(248, 243, 234, 0.90);
+
+  /* Surfaces — warm honey tint, NOT cold gray opacity */
+  --card-bg:         rgba(158, 110, 36, 0.08);
+  --skeleton-base:   rgba(158, 110, 36, 0.14);
+
+  /* Badges */
+  --badge-bg:        rgba(28, 24, 20, 0.84);
+  --badge-text:      #F8F3EA;
+  --badge-on-image:  rgba(28, 24, 20, 0.10);
+
+  /* Hero — strong, real atmospheric glows */
+  --hero-gold-accent: rgba(158, 110, 36, 0.90);
+  --hero-ambient-1:   rgba(212, 158, 55, 0.26);
+  --hero-ambient-2:   rgba(148, 88, 22, 0.20);
+
+  /* Lightbox always stays dark for image viewing */
+  --lightbox-bg: rgba(10, 10, 10, 0.95);
+}
+
+/* ── Base ──────────────────────────────────────────────────────── */
+@layer base {
+  body {
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-700;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv11";
+    scroll-behavior: smooth;
+  }
+}
+
+/* ── Hero Gradient Backgrounds ─────────────────────────────────── */
+.hero-bg-gradient {
+  background:
+    radial-gradient(ellipse 80% 55% at 72% 32%, rgba(110, 22, 30, 0.38) 0%, transparent 62%),
+    radial-gradient(ellipse 55% 50% at 18% 68%, rgba(65, 38, 10, 0.30) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 45% at 88% 82%, rgba(28, 12, 5, 0.50) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 55% at  8% 12%, rgba(45, 16, 20, 0.22) 0%, transparent 60%),
+    #0A0A0A;
+}
+[data-theme='light'] .hero-bg-gradient {
+  background:
+    /* Primary atelier light — upper right, like a studio skylight flooding in */
+    radial-gradient(ellipse 55% 46% at 80% 12%, rgba(225, 165, 42, 0.60) 0%, transparent 52%),
+    /* Secondary warmth — fills center volume */
+    radial-gradient(ellipse 65% 55% at 52% 46%, rgba(200, 138, 45, 0.24) 0%, transparent 58%),
+    /* Deep sienna shadow — lower right, creates depth */
+    radial-gradient(ellipse 42% 35% at 94% 92%, rgba(118, 62, 14, 0.36) 0%, transparent 46%),
+    /* Bright ivory counterlight — upper left, keeps text area luminous */
+    radial-gradient(ellipse 38% 44% at 3% 5%, rgba(255, 252, 228, 0.80) 0%, transparent 50%),
+    /* Warm fill near text — enriches the reading zone */
+    radial-gradient(ellipse 36% 36% at 8% 82%, rgba(175, 112, 28, 0.26) 0%, transparent 48%),
+    /* Rich honey-parchment base — the anchor colour of the scene */
+    linear-gradient(148deg, #EBD9AE 0%, #E2CE9E 28%, #E7D7B2 62%, #D9C790 100%);
+}
+
+/* ── Hero Vignette Overlay ─────────────────────────────────────── */
+.hero-vignette {
+  background: radial-gradient(ellipse 75% 65% at 50% 45%, transparent 30%, rgba(10, 10, 10, 0.45) 100%);
+}
+[data-theme='light'] .hero-vignette {
+  /* Warm amber-sienna edges — cinematic frame depth matching dark mode quality */
+  background: radial-gradient(ellipse 74% 66% at 40% 50%, transparent 22%, rgba(62, 36, 4, 0.28) 100%);
+}
+
+/* ── Card / Product Placeholder (no image) ─────────────────────── */
+.card-placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 40%, rgba(110, 22, 30, 0.35) 0%, transparent 65%),
+    radial-gradient(ellipse at 30% 70%, rgba(65, 38, 10, 0.28) 0%, transparent 55%),
+    #111010;
+}
+[data-theme='light'] .card-placeholder {
+  background:
+    radial-gradient(ellipse at 62% 38%, rgba(200, 145, 40, 0.36) 0%, transparent 60%),
+    radial-gradient(ellipse at 28% 72%, rgba(158, 110, 36, 0.26) 0%, transparent 52%),
+    #E6D9C2;
+}
+
+/* ── Collection Banner Overlays ────────────────────────────────── */
+.banner-fade-overlay {
+  background: linear-gradient(to top,
+    #0A0A0A 0%,
+    rgba(10, 10, 10, 0.30) 45%,
+    rgba(10, 10, 10, 0.40) 100%
+  );
+}
+[data-theme='light'] .banner-fade-overlay {
+  background: linear-gradient(to top,
+    #F8F3EA 0%,
+    rgba(248, 243, 234, 0.30) 45%,
+    rgba(248, 243, 234, 0.40) 100%
+  );
+}
+
+.banner-top-fade {
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0.60) 0%, transparent 100%);
+}
+[data-theme='light'] .banner-top-fade {
+  background: linear-gradient(to bottom, rgba(248, 243, 234, 0.50) 0%, transparent 100%);
+}
+
+/* ── Image Overlays (theme-adaptive) ──────────────────────────── */
+.image-overlay-tr {
+  background: linear-gradient(to top right, var(--bg-primary) 0%, transparent 65%);
+}
+/* Same direction, but fades into --bg-subtle for sections with alternate background */
+.image-overlay-tr-subtle {
+  background: linear-gradient(to top right, var(--bg-subtle) 0%, transparent 65%);
+}
+.image-overlay-bottom {
+  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(0,0,0,0) 60%);
+}
+
+/* ── Noise Grain Overlay ───────────────────────────────────────── */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
+
+/* ── Custom Luxury Cursor ──────────────────────────────────────── */
+.custom-cursor {
+  width: 6px;
+  height: 6px;
+  background: var(--brand-gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transition: transform 0.1s ease;
+}
+
+.custom-cursor-follower {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1), width 0.3s ease, height 0.3s ease;
+}
+
+/* ── Typography ────────────────────────────────────────────────── */
+.editorial-title {
+  font-size: clamp(3rem, 10vw, 12rem);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+  @apply font-serif;
+}
+
+/* Hero headline — looser tracking on light bg (serif strokes read heavier on cream) */
+.hero-headline {
+  font-size: clamp(2.6rem, 6.5vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.030em;
+}
+[data-theme='light'] .hero-headline {
+  letter-spacing: -0.016em;
+  line-height: 0.94;
+}
+
+/* ── Luxury Button ─────────────────────────────────────────────── */
+.luxury-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  @apply px-10 py-4 text-[10px] tracking-[0.4em] uppercase border border-[var(--border-color)];
+}
+
+.luxury-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--brand-gold);
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -1;
+}
+
+.luxury-button:hover::before {
+  left: 0;
+}
+
+.luxury-button:hover {
+  color: var(--bg-primary) !important;
+  border-color: var(--brand-gold);
+}
+
+/* Filled CTA */
+.cta-filled {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+}
+.cta-filled::before {
+  background: var(--brand-gold);
+}
+.cta-filled:hover {
+  color: var(--bg-primary) !important;
+}
+
+/* ── Custom Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-gold);
+}
+
+/* ── Luxury Image Zoom ─────────────────────────────────────────── */
+.luxury-image-container {
+  overflow: hidden;
+  @apply relative;
+}
+.luxury-image-container img {
+  transition: transform 2s cubic-bezier(0.2, 1, 0.3, 1);
+}
+.luxury-image-container:hover img {
+  transform: scale(1.05);
+}
+
+/* ── Glassmorphism Nav ─────────────────────────────────────────── */
+.glass-nav {
+  @apply backdrop-blur-xl border-b border-[var(--border-color)] transition-all duration-500;
+  background: var(--glass-bg);
+}
+
+/* ── Editorial Separator ───────────────────────────────────────── */
+.editorial-sep {
+  @apply w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--border-color)] to-transparent my-12 opacity-60;
+}
+
+/* ── Marquee ───────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+/* ── Ken Burns ─────────────────────────────────────────────────── */
+@keyframes kenBurns {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+.animate-ken-burns {
+  animation: kenBurns 12s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* ── Theme transition on root ──────────────────────────────────── */
+html {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ── Glassmorphism Nav — upgraded ──────────────────────────────── */
+.glass-nav {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10, 10, 10, 0.75);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  transition: all 0.4s ease;
+}
+[data-theme='light'] .glass-nav {
+  background: rgba(245, 237, 224, 0.82);
+}
+
+/* ── CTA Filled — light mode outlined fix ──────────────────────── */
+[data-theme='light'] .cta-filled {
+  background: transparent;
+  border-color: #1a1a1a;
+  color: #1a1a1a;
+}
+[data-theme='light'] .luxury-button:hover {
+  color: #1a1a1a !important;
+}
+
+/* ── Footer Wordmark — theme-aware ─────────────────────────────── */
+:root {
+  --footer-wordmark-color: var(--border-color);
+  --footer-wordmark-shadow:
+    1px 1px 0 var(--brand-gold),
+    2px 2px 0 var(--brand-accent),
+    3px 3px 0 var(--brand-accent),
+    4px 4px 0 rgba(158,110,36,0.6),
+    5px 5px 0 rgba(140,90,20,0.4),
+    6px 6px 0 rgba(120,72,10,0.25),
+    7px 7px 14px rgba(0,0,0,0.35);
+}
+[data-theme='light'] {
+  --footer-wordmark-color: #6b4c0a;
+  --footer-wordmark-shadow:
+    2px 2px 0px rgba(107,76,10,0.3),
+    -1px -1px 0px rgba(255,220,100,0.4),
+    3px 3px 10px rgba(0,0,0,0.12);
+}
+
+/* ── Brand Story Badge bg — theme-aware ─────────────────────────── */
+:root {
+  --brand-story-badge-bg: rgba(0, 0, 0, 0.52);
+}
+[data-theme='light'] {
+  --brand-story-badge-bg: rgba(245, 237, 224, 0.72);
+}
+
+/* ── How To Order section bg ────────────────────────────────────── */
+:root {
+  --how-to-order-bg: #0f0f0f;
+}
+[data-theme='light'] {
+  --how-to-order-bg: #ede4d8;
+}
+
+/* ── Testimonial card — light mode ─────────────────────────────── */
+[data-theme='light'] .testimonial-card {
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(184, 134, 11, 0.2) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Hero texture overlay ───────────────────────────────────────── */
+.hero-texture-overlay {
+  background: radial-gradient(ellipse 120% 100% at 100% 50%, rgba(61, 0, 0, 0.45) 0%, transparent 65%);
+}
+[data-theme='light'] .hero-texture-overlay {
+  background: radial-gradient(ellipse 120% 100% at 100% 50%, rgba(200, 145, 40, 0.22) 0%, transparent 65%);
+}

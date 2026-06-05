@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+node_modules_old*/
+
+# Environment & secrets
+.env
+.env.local
+.env.production
+.dev.vars
+
+# Build outputs
+.next/
+dist/
+out/
+
+# Claude Code
+.claude/
+
+# Misc junk
+*.DOC
+*.JPG
+1NPDPRO5.*
+admin-panel-old/
+
+# OS
+.DS_Store
+Thumbs.db
