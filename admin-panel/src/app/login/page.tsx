@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Loader2, Lock, Mail, Eye, EyeOff, ShieldCheck } from 'lucide-react'
+import { Loader2, Lock, Mail, Eye, EyeOff, KeyRound, ShieldCheck } from 'lucide-react'
 import { apiFetch } from '@/lib/api'
 
 type Mode = 'login' | 'forgot-password'
