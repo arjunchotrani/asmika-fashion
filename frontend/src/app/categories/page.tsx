@@ -33,12 +33,12 @@ export default async function CategoriesPage() {
       <Navbar />
 
       {/* ── Header ──────────────────────────────────────────── */}
-      <section className="pt-32 pb-16 px-6 md:px-12 border-b border-[var(--border-color)]">
+      <section className="pt-28 md:pt-32 pb-10 md:pb-16 px-6 md:px-12 border-b border-[var(--border-color)]">
         <div className="max-w-[1800px] mx-auto">
           <p className="text-[9px] tracking-[0.6em] uppercase text-brand-gold/60 font-light mb-6">
             Shop by Category
           </p>
-          <h1 className="text-5xl md:text-7xl font-serif leading-[0.95]">
+          <h1 className="text-3xl md:text-7xl font-serif leading-[0.95]">
             The Curated<br />
             <em>Categories</em>
           </h1>

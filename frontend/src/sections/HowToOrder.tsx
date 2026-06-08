@@ -60,7 +60,7 @@ export function HowToOrder() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-            className="text-4xl md:text-6xl font-serif leading-[1.1]"
+            className="text-2xl md:text-6xl font-serif leading-[1.1]"
           >
             How to{' '}
             <span className="italic font-light">Order</span>
@@ -103,7 +103,7 @@ export function HowToOrder() {
                   {/* Step number */}
                   <span
                     className="font-serif font-light leading-none mb-4 select-none"
-                    style={{ fontSize: '5rem', color: 'var(--brand-gold)', opacity: 0.7 }}
+                    style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', color: 'var(--brand-gold)', opacity: 0.7 }}
                   >
                     {step.number}
                   </span>

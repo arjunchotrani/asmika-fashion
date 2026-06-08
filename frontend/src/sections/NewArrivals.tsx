@@ -35,7 +35,7 @@ export function NewArrivals() {
       <div className="max-w-[1800px] mx-auto">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-16 gap-4 md:gap-8">
           <div>
             <motion.span
               initial={{ opacity: 0 }}
@@ -50,7 +50,7 @@ export function NewArrivals() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-              className="text-4xl md:text-5xl font-serif"
+              className="text-2xl md:text-5xl font-serif"
             >
               New <span className="italic font-light">Arrivals</span>
             </motion.h2>

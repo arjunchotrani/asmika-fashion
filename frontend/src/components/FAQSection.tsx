@@ -45,7 +45,7 @@ export function FAQSection({ title = 'Frequently Asked Questions' }: FAQSectionP
   return (
     <section className="py-24 px-6 md:px-12 border-t border-[var(--border-color)]">
       <div className="max-w-[1800px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-16 lg:gap-32">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 lg:gap-32">
 
           {/* Left — heading */}
           <div className="lg:pt-2">

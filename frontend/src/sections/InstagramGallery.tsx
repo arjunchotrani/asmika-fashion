@@ -15,8 +15,8 @@ const images = [
 
 export function InstagramGallery() {
   return (
-    <section className="py-32 bg-[var(--bg-primary)] overflow-hidden">
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12 mb-20 flex items-center justify-between">
+    <section className="py-20 md:py-32 bg-[var(--bg-primary)] overflow-hidden">
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12 mb-10 md:mb-20 flex flex-col sm:flex-row sm:items-center justify-between gap-6 sm:gap-0">
         <div>
           <motion.span
             initial={{ opacity: 0 }}
@@ -28,7 +28,7 @@ export function InstagramGallery() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-serif"
+            className="text-2xl md:text-5xl font-serif"
           >
             Editorial <span className="italic font-light">Insights</span>
           </motion.h2>
@@ -56,7 +56,7 @@ export function InstagramGallery() {
           {[...images, ...images].map((img, index) => (
             <div 
               key={index} 
-              className="relative w-[300px] md:w-[450px] aspect-[4/5] bg-[var(--card-bg)] luxury-image-container group/item"
+              className="relative w-[220px] sm:w-[300px] md:w-[450px] aspect-[4/5] bg-[var(--card-bg)] luxury-image-container group/item"
             >
               <Image 
                 src={img} 

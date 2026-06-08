@@ -206,7 +206,7 @@ export function ProductDetails({ product, relatedProducts = [] }: Props) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.0, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
-                className="text-4xl md:text-5xl leading-[1.08] mb-6 font-normal"
+                className="text-2xl md:text-5xl leading-[1.08] mb-6 font-normal"
                 style={{ fontFamily: 'var(--font-cinzel)' }}
               >
                 {product.title}
@@ -310,7 +310,7 @@ export function ProductDetails({ product, relatedProducts = [] }: Props) {
                 className="mb-12"
               >
                 {needsColor ? (
-                  <div className="w-full flex items-center justify-center gap-3 bg-zinc-800/40 border border-zinc-700/40 px-10 py-5 text-[10px] tracking-[0.35em] uppercase text-[var(--text-secondary)] font-light">
+                  <div className="w-full flex items-center justify-center gap-3 bg-zinc-800/40 border border-zinc-700/40 px-6 py-4 sm:px-10 sm:py-5 text-[10px] tracking-[0.35em] uppercase text-[var(--text-secondary)] font-light">
                     Select a color to enquire
                   </div>
                 ) : (
@@ -319,7 +319,7 @@ export function ProductDetails({ product, relatedProducts = [] }: Props) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackWhatsAppClick(product.slug)}
-                    className="group w-full flex items-center justify-center gap-3 bg-brand-gold text-brand-black px-10 py-5 text-[10px] tracking-[0.35em] uppercase font-medium transition-all duration-500 hover:bg-brand-gold/85 hover:tracking-[0.45em]"
+                    className="group w-full flex items-center justify-center gap-3 bg-brand-gold text-brand-black px-6 py-4 sm:px-10 sm:py-5 text-[10px] tracking-[0.35em] uppercase font-medium transition-all duration-500 hover:bg-brand-gold/85 hover:tracking-[0.45em]"
                   >
                     <MessageCircle size={15} className="transition-transform duration-300 group-hover:scale-110" />
                     Enquire on WhatsApp

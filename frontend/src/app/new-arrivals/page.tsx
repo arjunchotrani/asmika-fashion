@@ -38,12 +38,12 @@ export default async function NewArrivalsPage() {
       <Navbar />
 
       {/* ── Header ────────────────────────────────────── */}
-      <section className="pt-48 pb-20 px-6 md:px-12">
+      <section className="pt-32 md:pt-48 pb-12 md:pb-20 px-6 md:px-12">
         <div className="max-w-[1800px] mx-auto flex flex-col items-center text-center">
           <p className="text-[10px] tracking-[0.6em] uppercase block mb-6 font-light text-[var(--text-secondary)]">
             The Latest from Our Collection
           </p>
-          <h1 className="text-5xl md:text-7xl font-serif mb-12">
+          <h1 className="text-3xl md:text-7xl font-serif mb-12">
             New <span className="italic font-light">Arrivals</span>
           </h1>
           <div className="w-32 h-[1px] bg-brand-gold/40" />
@@ -71,7 +71,7 @@ export default async function NewArrivalsPage() {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12 md:gap-x-8 md:gap-y-16">
               {products.map((product) => {
                 const images = sortedImages(product.images);
                 const thumb = images[0]?.url;

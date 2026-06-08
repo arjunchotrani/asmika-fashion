@@ -66,7 +66,7 @@ export default async function CategoryDetailPage({ params }: PageProps) {
       <Navbar />
 
       {/* ── Cinematic Banner ──────────────────────────────── */}
-      <section className="relative h-[70vh] md:h-[80vh] w-full overflow-hidden flex items-end pb-16 md:pb-24 px-6 md:px-12">
+      <section className="relative h-[55vh] sm:h-[65vh] md:h-[80vh] w-full overflow-hidden flex items-end pb-12 md:pb-24 px-6 md:px-12">
         {category.image_url ? (
           <Image
             src={category.image_url}
@@ -86,7 +86,7 @@ export default async function CategoryDetailPage({ params }: PageProps) {
           <p className="text-[9px] md:text-[10px] tracking-[0.6em] uppercase text-brand-gold/70 font-light mb-4">
             Category
           </p>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif leading-[0.95] mb-6">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-serif leading-[0.95] mb-6">
             {category.name}
           </h1>
           {category.description && (
@@ -147,7 +147,7 @@ export default async function CategoryDetailPage({ params }: PageProps) {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12 md:gap-x-8 md:gap-y-16">
               {products.map((product) => {
                 const images = sortedImages(product.images);
                 const thumb = images[0]?.url;

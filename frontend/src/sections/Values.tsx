@@ -40,7 +40,7 @@ export function Values() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-            className="text-4xl md:text-6xl font-display font-normal leading-[1.1]"
+            className="text-2xl md:text-6xl font-display font-normal leading-[1.1]"
             style={{ fontFamily: 'var(--font-cinzel)' }}
           >
             Our Promise
@@ -56,7 +56,7 @@ export function Values() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: index * 0.15, ease: [0.19, 1, 0.22, 1] }}
-              className="relative p-10 md:p-14 border-t border-[var(--border-color)] md:border-t-0 md:border-l first:border-l-0 first:border-t-0 group"
+              className="relative p-6 sm:p-10 md:p-14 border-t border-[var(--border-color)] md:border-t-0 md:border-l first:border-l-0 first:border-t-0 group"
             >
               {/* Number */}
               <span className="text-[10px] tracking-[0.4em] uppercase text-brand-gold/40 font-light block mb-10">

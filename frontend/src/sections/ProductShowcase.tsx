@@ -33,9 +33,9 @@ const products = [
 
 export function ProductShowcase() {
   return (
-    <section className="py-32 px-6 md:px-12 bg-[var(--bg-primary)]">
+    <section className="py-20 md:py-32 px-6 md:px-12 bg-[var(--bg-primary)]">
       <div className="max-w-[1800px] mx-auto">
-        <div className="flex flex-col items-center text-center mb-24">
+        <div className="flex flex-col items-center text-center mb-12 md:mb-24">
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 0.5 }}
@@ -46,14 +46,14 @@ export function ProductShowcase() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-serif mb-8"
+            className="text-2xl md:text-5xl font-serif mb-8"
           >
             Signature <span className="italic font-light">Archive</span>
           </motion.h2>
           <div className="w-24 h-[1px] bg-brand-gold/40" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
           {products.map((product, index) => (
             <motion.div
               key={index}

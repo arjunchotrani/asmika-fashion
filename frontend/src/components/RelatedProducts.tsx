@@ -36,7 +36,7 @@ export function RelatedProducts({
           <div className="hidden md:block h-[1px] flex-1 mx-12" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.15), transparent)' }} />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12 md:gap-x-8 md:gap-y-16">
           {products.slice(0, 8).map((product) => {
             const images = sortedImages(product.images);
             const thumb = images[0]?.url;

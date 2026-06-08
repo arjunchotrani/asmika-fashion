@@ -38,7 +38,7 @@ export function WhatsAppCTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-            className="text-5xl md:text-7xl font-serif leading-[1.05] mb-8"
+            className="text-3xl md:text-7xl font-serif leading-[1.05] mb-8"
           >
             Talk to Us on <br />
             <span className="italic font-light">WhatsApp</span>
@@ -64,7 +64,7 @@ export function WhatsAppCTA() {
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.35 }}
             whileHover={{ scale: 1.02 }}
-            className="inline-flex items-center gap-4 bg-[#25D366] text-white px-10 py-5 text-[10px] tracking-[0.3em] uppercase font-medium transition-all duration-500 hover:bg-[#20b859]"
+            className="inline-flex items-center gap-4 bg-[#25D366] text-white px-6 py-4 sm:px-10 sm:py-5 text-[10px] tracking-[0.3em] uppercase font-medium transition-all duration-500 hover:bg-[#20b859]"
           >
             <MessageCircle size={16} />
             Chat on WhatsApp

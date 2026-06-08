@@ -40,7 +40,7 @@ export function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
-            className="text-4xl md:text-6xl font-serif leading-[1.1]"
+            className="text-2xl md:text-6xl font-serif leading-[1.1]"
           >
             Loved by{' '}
             <span className="italic font-light">Customers</span>
@@ -56,7 +56,7 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: i * 0.18, ease: [0.19, 1, 0.22, 1] }}
-              className="testimonial-card group flex flex-col p-8 md:p-10 transition-all duration-500"
+              className="testimonial-card group flex flex-col p-6 md:p-10 transition-all duration-500"
               style={{
                 background: 'rgba(255,255,255,0.03)',
                 border: '1px solid rgba(201,168,76,0.15)',
