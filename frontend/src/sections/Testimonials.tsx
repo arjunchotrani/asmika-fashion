@@ -22,7 +22,7 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   return (
-    <section className="py-24 md:py-36 px-6 md:px-12 bg-[var(--bg-primary)]">
+    <section className="py-12 md:py-36 px-6 md:px-12 bg-[var(--bg-primary)]">
       <div className="max-w-[1800px] mx-auto">
 
         {/* Header */}

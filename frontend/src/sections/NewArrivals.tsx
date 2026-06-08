@@ -31,7 +31,7 @@ export function NewArrivals() {
   }, []);
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-[var(--bg-primary)] overflow-hidden">
+    <section className="py-12 md:py-24 px-6 md:px-12 bg-[var(--bg-primary)] overflow-hidden">
       <div className="max-w-[1800px] mx-auto">
 
         {/* Header */}

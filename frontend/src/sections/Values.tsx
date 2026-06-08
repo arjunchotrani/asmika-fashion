@@ -22,7 +22,7 @@ const VALUES = [
 
 export function Values() {
   return (
-    <section className="py-32 px-6 md:px-12 bg-[var(--bg-subtle)]">
+    <section className="py-16 md:py-32 px-6 md:px-12 bg-[var(--bg-subtle)]">
       <div className="max-w-[1800px] mx-auto">
 
         {/* Header */}

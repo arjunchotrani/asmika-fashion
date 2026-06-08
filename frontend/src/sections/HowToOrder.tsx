@@ -27,7 +27,7 @@ const STEPS = [
 export function HowToOrder() {
   return (
     <section
-      className="relative py-24 md:py-36 px-6 md:px-12 overflow-hidden"
+      className="relative py-12 md:py-36 px-6 md:px-12 overflow-hidden"
       style={{ background: 'var(--how-to-order-bg)' }}
     >
       {/* Ghost watermark */}

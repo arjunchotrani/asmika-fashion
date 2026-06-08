@@ -8,7 +8,7 @@ export function WhatsAppCTA() {
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to enquire about Asmika Fashion products.")}`;
 
   return (
-    <section className="py-32 px-6 md:px-12 bg-[var(--bg-primary)] relative overflow-hidden">
+    <section className="py-16 md:py-32 px-6 md:px-12 bg-[var(--bg-primary)] relative overflow-hidden">
       {/* Background text */}
       <div
         aria-hidden="true"
