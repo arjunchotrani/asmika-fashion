@@ -206,7 +206,7 @@ export function ProductDetails({ product, relatedProducts = [] }: Props) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.0, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
-                className="text-2xl md:text-5xl leading-[1.08] mb-6 font-normal"
+                className="text-2xl md:text-5xl leading-[1.08] mb-6 font-normal break-words"
                 style={{ fontFamily: 'var(--font-cinzel)' }}
               >
                 {product.title}
@@ -296,7 +296,7 @@ export function ProductDetails({ product, relatedProducts = [] }: Props) {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.5 }}
-                  className="text-sm font-light text-[var(--text-secondary)] leading-[2] mb-10 border-l-2 border-brand-gold/20 pl-4"
+                  className="text-sm font-light text-[var(--text-secondary)] leading-[2] mb-10 border-l-2 border-brand-gold/20 pl-4 break-words whitespace-pre-wrap overflow-hidden"
                 >
                   {displayDescription}
                 </motion.p>

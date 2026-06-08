@@ -35,7 +35,7 @@ export function NewArrivals() {
       <div className="max-w-[1800px] mx-auto">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-16 gap-4 md:gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 gap-4 md:gap-8">
           <div>
             <motion.span
               initial={{ opacity: 0 }}
