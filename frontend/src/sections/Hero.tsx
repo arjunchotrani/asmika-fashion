@@ -89,7 +89,7 @@ export function Hero() {
       {/* ── Editorial Content — bottom-left aligned ──────────── */}
       <motion.div
         style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-20 w-full px-6 md:px-12 pb-20 md:pb-28"
+        className="relative z-20 w-full px-6 md:px-12 pb-32 md:pb-28"
       >
         <div className="max-w-[1800px] mx-auto">
           <div className="max-w-3xl">
@@ -137,9 +137,9 @@ export function Hero() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.8, delay: 2.0, ease: [0.19, 1, 0.22, 1] }}
-              className="flex flex-col sm:flex-row items-start gap-4 md:gap-6"
+              className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4 md:gap-6"
             >
-              <Link href="/new-arrivals" className="luxury-button cta-filled group">
+              <Link href="/new-arrivals" className="luxury-button cta-filled group w-full sm:w-auto text-center">
                 <span className="relative z-10">New Arrivals</span>
               </Link>
             </motion.div>

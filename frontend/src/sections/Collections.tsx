@@ -30,7 +30,7 @@ export function Collections() {
   }, []);
 
   return (
-    <section className="py-32 px-6 md:px-12 bg-[var(--bg-primary)] overflow-hidden">
+    <section className="py-20 md:py-32 px-6 md:px-12 bg-[var(--bg-primary)] overflow-hidden">
       <div className="max-w-[1800px] mx-auto">
 
         {/* Header */}
@@ -69,7 +69,7 @@ export function Collections() {
 
         {/* Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 md:gap-16">
             {Array.from({ length: 4 }).map((_, i) => (
               <CategorySkeleton key={i} />
             ))}
@@ -81,7 +81,7 @@ export function Collections() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 md:gap-16">
             {categories.map((item, index) => (
               <motion.div
                 key={item.id}

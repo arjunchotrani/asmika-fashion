@@ -115,7 +115,7 @@ export function Contact() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-[var(--bg-primary)] p-5 sm:p-8 md:p-16 border border-[var(--border-color)] relative"
+          className="bg-[var(--bg-primary)] p-6 sm:p-8 md:p-16 border border-[var(--border-color)] relative"
         >
           <div className="absolute inset-0 bg-brand-gold/5 pointer-events-none" />
 

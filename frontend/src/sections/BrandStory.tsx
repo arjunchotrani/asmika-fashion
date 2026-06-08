@@ -15,8 +15,8 @@ export function BrandStory() {
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
   return (
-    <section ref={containerRef} className="py-20 md:py-32 px-6 md:px-12 bg-[var(--bg-subtle)] relative overflow-hidden">
-      <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-center">
+    <section ref={containerRef} className="py-16 md:py-32 px-6 md:px-12 bg-[var(--bg-subtle)] relative overflow-hidden">
+      <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-24 items-center">
         {/* Visual Layer */}
         <div className="relative order-2 lg:order-1 group">
           <motion.div

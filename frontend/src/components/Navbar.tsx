@@ -38,13 +38,13 @@ export function Navbar() {
           isScrolled ? "glass-nav py-4" : "bg-transparent"
         )}
       >
-        <div className="max-w-[1800px] mx-auto flex items-center justify-between">
+        <div className="max-w-[1800px] mx-auto flex items-center justify-between w-full">
 
           {/* Left: Desktop nav links */}
           <div className="hidden md:flex items-center gap-8 lg:gap-10" />
 
           {/* Center: Logo */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+          <Link href="/" className="relative md:absolute md:left-1/2 md:-translate-x-1/2">
             <motion.div
               animate={{ scale: isScrolled ? 0.8 : 1 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
@@ -55,14 +55,14 @@ export function Navbar() {
                 width={0}
                 height={0}
                 sizes="(max-width: 768px) 120px, 160px"
-                className="w-[120px] md:w-[160px] h-auto object-contain"
+                className="w-[100px] sm:w-[120px] md:w-[160px] h-auto object-contain"
                 priority
               />
             </motion.div>
           </Link>
 
           {/* Right: Search, ThemeToggle, Menu */}
-          <div className="flex items-center gap-6 md:gap-8">
+          <div className="flex items-center gap-3 sm:gap-6 md:gap-8">
             <button
               onClick={() => setIsSearchOpen(true)}
               className="text-[var(--text-secondary)] hover:text-brand-gold transition-colors duration-300"

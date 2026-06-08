@@ -47,7 +47,7 @@ export function SplashGate({ children }: { children: React.ReactNode }) {
                   width={0}
                   height={0}
                   sizes="(max-width: 768px) 280px, 420px"
-                  className="w-[280px] md:w-[420px] h-auto object-contain"
+                  className="w-[200px] sm:w-[280px] md:w-[420px] h-auto object-contain"
                   priority
                 />
               </motion.div>

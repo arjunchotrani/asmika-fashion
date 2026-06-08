@@ -68,7 +68,7 @@ export function NewArrivals() {
 
         {/* Grid */}
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
             {Array.from({ length: 4 }).map((_, i) => <ProductSkeleton key={i} />)}
           </div>
         ) : products.length === 0 ? (
@@ -78,7 +78,7 @@ export function NewArrivals() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
             {products.slice(0, 8).map((product, index) => {
               const images = sortedImages(product.images);
               const thumb = images[0]?.url;
@@ -117,7 +117,7 @@ export function NewArrivals() {
                     <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] flex flex-col gap-2">
                       <Link
                         href={`/product/${product.slug}`}
-                        className="w-full bg-black/85 backdrop-blur-sm text-[#FDFCF8] py-3 text-[9px] tracking-widest uppercase text-center hover:bg-brand-gold hover:text-black transition-colors duration-300"
+                        className="w-full bg-black/85 backdrop-blur-sm text-[#FDFCF8] py-3 min-h-[44px] text-[9px] tracking-widest uppercase text-center hover:bg-brand-gold hover:text-black transition-colors duration-300 flex items-center justify-center"
                         onClick={(e) => e.stopPropagation()}
                       >
                         View Details
@@ -126,7 +126,7 @@ export function NewArrivals() {
                         href={whatsappUrl(product.title)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full bg-[#25D366]/90 backdrop-blur-sm text-white py-3 text-[9px] tracking-widest uppercase text-center flex items-center justify-center gap-2 hover:bg-[#25D366] transition-colors duration-300"
+                        className="w-full bg-[#25D366]/90 backdrop-blur-sm text-white py-3 min-h-[44px] text-[9px] tracking-widest uppercase text-center flex items-center justify-center gap-2 hover:bg-[#25D366] transition-colors duration-300"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <MessageCircle size={12} /> Enquire on WhatsApp

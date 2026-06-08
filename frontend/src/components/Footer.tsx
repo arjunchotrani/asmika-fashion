@@ -11,7 +11,7 @@ export function Footer() {
       <div className="max-w-[1800px] mx-auto">
 
         {/* ── Three-column grid ────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0">
 
           {/* Column 1: Brand Identity */}
           <div className="space-y-10 md:pr-12 lg:pr-20 md:border-r border-[var(--border-color)]">
