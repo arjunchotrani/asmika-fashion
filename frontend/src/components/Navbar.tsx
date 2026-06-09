@@ -4,15 +4,15 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Search } from 'lucide-react';
+import { X, Search, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { CurrencySelector } from './CurrencySelector';
 import { SearchOverlay } from './SearchOverlay';
 import { cn } from '@/lib/utils';
+import { getCategories, type Category } from '@/lib/api';
 
 const NAV_LINKS = [
   { name: 'New Arrivals', href: '/new-arrivals' },
-  { name: 'Categories', href: '/categories' },
   { name: 'About Us', href: '/about' },
   { name: 'Terms & Conditions', href: '/terms' },
 ];
@@ -21,6 +21,8 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [categoriesExpanded, setCategoriesExpanded] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +30,10 @@ export function Navbar() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    getCategories().then(setCategories).catch(() => {});
   }, []);
 
   return (
@@ -95,10 +101,10 @@ export function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-            className="fixed inset-0 bg-[var(--bg-primary)] z-[200] flex flex-col items-center justify-center gap-10"
+            className="fixed inset-0 bg-[var(--bg-primary)] z-[200] flex flex-col items-center justify-center gap-10 overflow-y-auto py-24"
           >
             <button
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => { setIsMobileMenuOpen(false); setCategoriesExpanded(false); }}
               className="absolute top-8 right-8 p-2 hover:text-brand-gold transition-colors z-[210]"
               aria-label="Close menu"
             >
@@ -108,7 +114,7 @@ export function Navbar() {
             {/* Home link */}
             <Link
               href="/"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => { setIsMobileMenuOpen(false); setCategoriesExpanded(false); }}
               className="text-2xl sm:text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase hover:text-brand-gold transition-all duration-500 hover:italic"
             >
               <motion.span
@@ -120,17 +126,76 @@ export function Navbar() {
               </motion.span>
             </Link>
 
+            {/* Categories — expandable */}
+            <motion.div
+              className="flex flex-col items-center gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <button
+                onClick={() => setCategoriesExpanded((prev) => !prev)}
+                className="flex items-center gap-3 text-2xl sm:text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase hover:text-brand-gold transition-all duration-500 hover:italic group"
+              >
+                Categories
+                <ChevronDown
+                  size={18}
+                  strokeWidth={1.5}
+                  className={cn(
+                    'transition-transform duration-500 text-brand-gold/60 mt-1',
+                    categoriesExpanded ? 'rotate-180' : ''
+                  )}
+                />
+              </button>
+
+              <AnimatePresence>
+                {categoriesExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                    className="overflow-hidden flex flex-col items-center gap-3"
+                  >
+                    <Link
+                      href="/categories"
+                      onClick={() => { setIsMobileMenuOpen(false); setCategoriesExpanded(false); }}
+                      className="text-[9px] tracking-[0.5em] uppercase text-brand-gold/60 hover:text-brand-gold transition-colors duration-300 mt-1"
+                    >
+                      View All
+                    </Link>
+                    {categories.map((cat, i) => (
+                      <motion.div
+                        key={cat.id}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.05 }}
+                      >
+                        <Link
+                          href={`/categories/${cat.slug}`}
+                          onClick={() => { setIsMobileMenuOpen(false); setCategoriesExpanded(false); }}
+                          className="text-base sm:text-lg font-serif tracking-[0.15em] uppercase text-[var(--text-secondary)] hover:text-brand-gold transition-colors duration-300"
+                        >
+                          {cat.name}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+
             {NAV_LINKS.map((item, idx) => (
               <Link
                 key={item.name}
                 href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => { setIsMobileMenuOpen(false); setCategoriesExpanded(false); }}
                 className="text-2xl sm:text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase hover:text-brand-gold transition-all duration-500 hover:italic"
               >
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + idx * 0.1 }}
+                  transition={{ delay: 0.4 + idx * 0.1 }}
                 >
                   {item.name}
                 </motion.span>
