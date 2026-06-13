@@ -5,6 +5,7 @@ import { createSupabaseAdminClient } from '../config/supabase'
 import { parseStoredPassword, verifyPassword, hashPassword, formatStoredPassword } from '../utils/password'
 import { generateToken } from '../utils/jwt'
 import { rateLimit } from '../middleware/rateLimit'
+import { authMiddleware } from '../middleware/auth'
 import type { Env } from '../config/env'
 
 const authRouter = new Hono<{ Bindings: Env }>()
@@ -40,9 +41,10 @@ authRouter.post('/login', rateLimit({ max: 5, windowMs: 15 * 60 * 1000, message:
   })
 })
 
-// Change password — 5 attempts per IP per 15 minutes
-authRouter.post('/change-password', rateLimit({ max: 5, windowMs: 15 * 60 * 1000, message: 'Too many attempts. Please wait 15 minutes.' }), zValidator('json', changePasswordSchema), async (c) => {
-  const { email, currentPassword, newPassword } = c.req.valid('json')
+// Change password — requires active session + 5 attempts per IP per 15 minutes
+authRouter.post('/change-password', authMiddleware, rateLimit({ max: 5, windowMs: 15 * 60 * 1000, message: 'Too many attempts. Please wait 15 minutes.' }), zValidator('json', changePasswordSchema), async (c) => {
+  const { currentPassword, newPassword } = c.req.valid('json')
+  const email = (c.get('jwtPayload') as { email: string }).email
   const supabase = createSupabaseAdminClient(c.env)
 
   const { data: admin, error } = await supabase

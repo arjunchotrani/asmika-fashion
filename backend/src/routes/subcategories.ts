@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
+import { verify } from 'hono/jwt'
 import { subcategorySchema } from '../validators/category.validator'
 import { createSupabaseAdminClient } from '../config/supabase'
 import { authMiddleware } from '../middleware/auth'
@@ -7,13 +8,31 @@ import type { Env } from '../config/env'
 
 const subcategoryRouter = new Hono<{ Bindings: Env }>()
 
+async function isAdminRequest(authHeader: string | undefined, secret: string): Promise<boolean> {
+  if (!authHeader?.startsWith('Bearer ')) return false
+  try {
+    await verify(authHeader.slice(7), secret, 'HS256')
+    return true
+  } catch {
+    return false
+  }
+}
+
 // Public routes
 subcategoryRouter.get('/', async (c) => {
   const supabase = createSupabaseAdminClient(c.env)
-  const { data, error } = await supabase
+  const admin = await isAdminRequest(c.req.header('Authorization'), c.env.JWT_SECRET)
+
+  let query = supabase
     .from('subcategories')
     .select('*, category:categories(name)')
     .order('created_at', { ascending: false })
+
+  if (!admin) {
+    query = query.eq('status', 'published')
+  }
+
+  const { data, error } = await query
 
   if (error) {
     console.error('Subcategories GET error:', error)
