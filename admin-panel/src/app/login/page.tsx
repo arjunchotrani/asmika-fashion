@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Loader2, Lock, Mail, Eye, EyeOff, KeyRound, ShieldCheck } from 'lucide-react'
-import { apiFetch } from '@/lib/api'
+import { setToken } from '@/lib/api'
 
 type Mode = 'login' | 'forgot-password'
 
@@ -40,21 +40,22 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
     try {
-      const res = await apiFetch('/api/auth/login', {
+      // POST to the Next.js Route Handler — it sets an HttpOnly cookie server-side
+      const res = await fetch('/api/login', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
       const data = await res.json()
       if (data.success) {
-        const token = data.data.token
-        localStorage.setItem('asmika_admin_token', token)
-        document.cookie = `asmika_admin_token=${token}; path=/; max-age=604800; SameSite=Lax`
+        // Keep token in memory only — no localStorage, no client-side cookie
+        setToken(data.data.token)
         router.push('/dashboard')
       } else {
         setError(data.message || 'Invalid credentials')
       }
     } catch {
-      setError('Failed to connect to backend')
+      setError('Failed to connect to server')
     } finally {
       setLoading(false)
     }
@@ -76,8 +77,10 @@ export default function LoginPage() {
 
     setLoading(true)
     try {
-      const res = await apiFetch('/api/auth/forgot-password', {
+      // Forgot-password still calls the Worker directly (no auth token needed)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: fpEmail, resetSecret: fpSecret, newPassword: fpNew }),
       })
       const data = await res.json()
@@ -92,7 +95,7 @@ export default function LoginPage() {
         setError(data.message || 'Failed to reset password')
       }
     } catch {
-      setError('Failed to connect to backend')
+      setError('Failed to connect to server')
     } finally {
       setLoading(false)
     }

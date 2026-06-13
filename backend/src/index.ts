@@ -21,6 +21,9 @@ const ALLOWED_ORIGIN_PATTERNS = [
   /^http:\/\/(localhost|127\.0\.0\.1):(3000|3001)$/,
 ]
 
+// Shared rate limit for public catalogue endpoints — 60 req/min per IP
+const catalogueRateLimit = rateLimit({ max: 60, windowMs: 60 * 1000 })
+
 const app = new Hono<{ Bindings: Env }>()
 
 app.use('*', logger())
@@ -42,11 +45,19 @@ app.get('/api/health', (c) => {
 })
 
 app.route('/api/auth', authRouter)
+
+app.use('/api/categories', catalogueRateLimit)
 app.route('/api/categories', categoryRouter)
+
+app.use('/api/subcategories', catalogueRateLimit)
 app.route('/api/subcategories', subcategoryRouter)
+
+app.use('/api/collections', catalogueRateLimit)
 app.route('/api/collections', collectionRouter)
-app.use('/api/products', rateLimit({ max: 60, windowMs: 60 * 1000 }))
+
+app.use('/api/products', catalogueRateLimit)
 app.route('/api/products', productRouter)
+
 app.route('/api/enquiries', enquiryRouter)
 app.route('/api/formatter', formatterRouter)
 app.route('/api/uploads', uploadRouter)

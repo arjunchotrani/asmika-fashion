@@ -8,6 +8,7 @@ const uploadRouter = new Hono<{ Bindings: Env }>()
 
 uploadRouter.use('*', authMiddleware)
 
+// SVG intentionally excluded — SVGs can contain embedded JavaScript (XSS risk)
 const ALLOWED_MIME_TYPES = new Set([
   'image/jpeg',
   'image/jpg',
@@ -15,12 +16,24 @@ const ALLOWED_MIME_TYPES = new Set([
   'image/webp',
   'image/gif',
   'image/avif',
-  'image/svg+xml',
 ])
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 MB
 
 const VALID_FOLDERS = new Set(['products', 'categories', 'subcategories', 'collections', 'misc'])
+
+// Magic byte validators — guards against client-spoofed Content-Type
+const MAGIC_BYTES: Record<string, (b: Uint8Array) => boolean> = {
+  'image/jpeg': (b) => b[0] === 0xFF && b[1] === 0xD8 && b[2] === 0xFF,
+  'image/jpg':  (b) => b[0] === 0xFF && b[1] === 0xD8 && b[2] === 0xFF,
+  'image/png':  (b) => b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4E && b[3] === 0x47,
+  'image/webp': (b) =>
+    b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 &&
+    b[8] === 0x57 && b[9] === 0x45 && b[10] === 0x42 && b[11] === 0x50,
+  'image/gif':  (b) => b[0] === 0x47 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x38,
+  // AVIF is ISOBMFF: bytes 4–7 must spell 'ftyp'
+  'image/avif': (b) => b[4] === 0x66 && b[5] === 0x74 && b[6] === 0x79 && b[7] === 0x70,
+}
 
 function sanitizeFilename(original: string): string {
   const noExt = original.replace(/\.[^.]+$/, '')
@@ -49,7 +62,6 @@ uploadRouter.post('/', async (c) => {
     }, 400)
   }
 
-  // Support single file (file) or multiple files (files[])
   const rawFiles = body['files[]'] ?? body['file']
   const fileList: File[] = Array.isArray(rawFiles)
     ? rawFiles.filter((f): f is File => f instanceof File)
@@ -66,7 +78,7 @@ uploadRouter.post('/', async (c) => {
   const errors: string[] = []
 
   for (const file of fileList) {
-    // Validate MIME type
+    // Validate declared MIME type
     if (!ALLOWED_MIME_TYPES.has(file.type)) {
       errors.push(`"${file.name}": unsupported type "${file.type}"`)
       continue
@@ -78,13 +90,29 @@ uploadRouter.post('/', async (c) => {
       continue
     }
 
+    // Read file bytes
+    let buffer: ArrayBuffer
+    try {
+      buffer = await file.arrayBuffer()
+    } catch {
+      errors.push(`"${file.name}": could not read file`)
+      continue
+    }
+
+    // Magic byte validation — verify content matches declared MIME type
+    const headerBytes = new Uint8Array(buffer.slice(0, Math.min(12, buffer.byteLength)))
+    const magicCheck = MAGIC_BYTES[file.type]
+    if (magicCheck && !magicCheck(headerBytes)) {
+      errors.push(`"${file.name}": file content does not match declared type`)
+      continue
+    }
+
     const ext = (file.name.split('.').pop() ?? 'jpg').toLowerCase()
     const basename = sanitizeFilename(file.name)
     const filename = `${Date.now()}-${basename}.${ext}`
     const key = buildKey(folder, filename)
 
     try {
-      const buffer = await file.arrayBuffer()
       await r2.send(
         new PutObjectCommand({
           Bucket: c.env.R2_BUCKET_NAME,
@@ -97,9 +125,9 @@ uploadRouter.post('/', async (c) => {
 
       const publicUrl = `${c.env.R2_PUBLIC_URL}/${key}`
       results.push({ url: publicUrl, filename, folder, size: file.size })
-    } catch (err: any) {
+    } catch (err) {
       console.error(`R2 upload error for ${key}:`, err)
-      errors.push(`"${file.name}": upload failed — ${err.message}`)
+      errors.push(`"${file.name}": upload failed`)
     }
   }
 
@@ -107,7 +135,6 @@ uploadRouter.post('/', async (c) => {
     return c.json({ success: false, message: 'All uploads failed', data: { errors } }, 500)
   }
 
-  // Single file — return flat data object for backward compatibility
   if (results.length === 1) {
     return c.json(
       {
@@ -120,7 +147,6 @@ uploadRouter.post('/', async (c) => {
     )
   }
 
-  // Multiple files
   return c.json(
     {
       success: true,
@@ -132,7 +158,7 @@ uploadRouter.post('/', async (c) => {
   )
 })
 
-// DELETE /api/uploads — delete a file by its R2 key (folder/filename)
+// DELETE /api/uploads — delete a file by its R2 key
 uploadRouter.delete('/', async (c) => {
   let body: { key?: string }
   try {
@@ -154,9 +180,9 @@ uploadRouter.delete('/', async (c) => {
         Key: key.trim(),
       })
     )
-  } catch (err: any) {
+  } catch (err) {
     console.error(`R2 delete error for ${key}:`, err)
-    return c.json({ success: false, message: 'Failed to delete file', error: err.message }, 500)
+    return c.json({ success: false, message: 'Failed to delete file' }, 500)
   }
 
   return c.json({ success: true, message: 'File deleted successfully' })

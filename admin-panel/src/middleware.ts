@@ -1,26 +1,23 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { jwtVerify } from 'jose'
 
-function isValidJwtStructure(token: string): boolean {
-  const parts = token.split('.')
-  if (parts.length !== 3) return false
-  try {
-    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')))
-    // Check expiry
-    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false
-    // Must have an email claim (set by our backend)
-    if (!payload.email) return false
-    return true
-  } catch {
-    return false
-  }
-}
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET ?? '')
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const token = request.cookies.get('asmika_admin_token')?.value
   const isLoginPage = request.nextUrl.pathname === '/login'
 
-  const isAuthenticated = token ? isValidJwtStructure(token) : false
+  let isAuthenticated = false
+
+  if (token) {
+    try {
+      await jwtVerify(token, JWT_SECRET)
+      isAuthenticated = true
+    } catch {
+      // Token invalid, expired, or tampered — fall through as unauthenticated
+    }
+  }
 
   if (!isAuthenticated && !isLoginPage) {
     return NextResponse.redirect(new URL('/login', request.url))
