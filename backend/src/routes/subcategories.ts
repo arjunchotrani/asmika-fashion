@@ -15,8 +15,11 @@ subcategoryRouter.get('/', async (c) => {
     .select('*, category:categories(name)')
     .order('created_at', { ascending: false })
 
-  if (error) return c.json({ success: false, message: error.message }, 500)
-  
+  if (error) {
+    console.error('Subcategories GET error:', error)
+    return c.json({ success: false, message: 'Failed to fetch subcategories' }, 500)
+  }
+
   // Flatten category name for convenience
   const formattedData = data?.map(item => ({
     ...item,
@@ -57,7 +60,10 @@ subcategoryRouter.post('/', zValidator('json', subcategorySchema), async (c) => 
     .select()
     .single()
 
-  if (error) return c.json({ success: false, message: error.message }, 400)
+  if (error) {
+    console.error('Subcategory create error:', error)
+    return c.json({ success: false, message: 'Failed to create subcategory' }, 400)
+  }
   return c.json({ success: true, message: 'Subcategory created', data }, 201)
 })
 
@@ -77,7 +83,10 @@ subcategoryRouter.put('/:id', zValidator('json', subcategorySchema.partial()), a
 
   const { data, error } = await query.select().single()
 
-  if (error) return c.json({ success: false, message: error.message }, 400)
+  if (error) {
+    console.error('Subcategory update error:', error)
+    return c.json({ success: false, message: 'Failed to update subcategory' }, 400)
+  }
   return c.json({ success: true, message: 'Subcategory updated', data })
 })
 
@@ -96,7 +105,10 @@ subcategoryRouter.delete('/:id', async (c) => {
 
   const { error } = await query
 
-  if (error) return c.json({ success: false, message: error.message }, 400)
+  if (error) {
+    console.error('Subcategory delete error:', error)
+    return c.json({ success: false, message: 'Failed to delete subcategory' }, 400)
+  }
   return c.json({ success: true, message: 'Subcategory deleted' })
 })
 

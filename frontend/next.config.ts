@@ -16,7 +16,7 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
-      `connect-src 'self' https://wa.me ${apiUrl}`,
+      `connect-src 'self' ${apiUrl}`,
       "frame-ancestors 'none'",
     ].join('; '),
   },

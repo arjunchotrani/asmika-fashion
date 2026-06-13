@@ -172,6 +172,12 @@ uploadRouter.delete('/', async (c) => {
     return c.json({ success: false, message: 'File key is required (e.g. "products/1716039283-saree.jpg")' }, 400)
   }
 
+  // Validate key is scoped to an allowed folder — prevents deleting arbitrary R2 objects
+  const keyFolder = key.trim().split('/')[0]
+  if (!VALID_FOLDERS.has(keyFolder)) {
+    return c.json({ success: false, message: `Invalid key. Must be under one of: ${[...VALID_FOLDERS].join(', ')}` }, 400)
+  }
+
   const r2 = createR2Client(c.env)
   try {
     await r2.send(

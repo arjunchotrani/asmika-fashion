@@ -11,7 +11,7 @@ const categoryRouter = new Hono<{ Bindings: Env }>()
 async function isAdminRequest(authHeader: string | undefined, secret: string): Promise<boolean> {
   if (!authHeader?.startsWith('Bearer ')) return false
   try {
-    await verify(authHeader.slice(7), secret)
+    await verify(authHeader.slice(7), secret, 'HS256')
     return true
   } catch {
     return false

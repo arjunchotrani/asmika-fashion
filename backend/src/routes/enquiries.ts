@@ -19,7 +19,10 @@ enquiryRouter.post('/', rateLimit({ max: 5, windowMs: 10 * 60 * 1000, message: '
     .select()
     .single()
 
-  if (error) throw error
+  if (error) {
+    console.error('Enquiry create error:', error)
+    return c.json({ success: false, message: 'Failed to submit enquiry' }, 500)
+  }
   return c.json({ success: true, message: 'Enquiry created successfully', data }, 201)
 })
 
@@ -43,7 +46,10 @@ enquiryRouter.get('/', async (c) => {
 
   const { data, error } = await query
 
-  if (error) throw error
+  if (error) {
+    console.error('Enquiries GET error:', error)
+    return c.json({ success: false, message: 'Failed to fetch enquiries' }, 500)
+  }
   return c.json({ success: true, data })
 })
 
@@ -59,7 +65,10 @@ enquiryRouter.put('/:id/status', zValidator('json', updateEnquiryStatusSchema), 
     .select()
     .single()
 
-  if (error) throw error
+  if (error) {
+    console.error('Enquiry status update error:', error)
+    return c.json({ success: false, message: 'Failed to update enquiry status' }, 500)
+  }
   return c.json({ success: true, message: 'Enquiry status updated', data })
 })
 
@@ -74,7 +83,10 @@ enquiryRouter.post('/:id/archive', async (c) => {
     .select()
     .single()
 
-  if (error) throw error
+  if (error) {
+    console.error('Enquiry archive error:', error)
+    return c.json({ success: false, message: 'Failed to archive enquiry' }, 500)
+  }
   return c.json({ success: true, message: 'Enquiry archived', data })
 })
 

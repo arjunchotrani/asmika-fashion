@@ -12,7 +12,7 @@ async function isAdminRequest(c: { req: { header: (h: string) => string | undefi
   const auth = c.req.header('Authorization')
   if (!auth?.startsWith('Bearer ')) return false
   try {
-    await verify(auth.slice(7), secret)
+    await verify(auth.slice(7), secret, 'HS256')
     return true
   } catch {
     return false

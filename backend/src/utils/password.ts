@@ -1,11 +1,11 @@
-import { Buffer } from 'node:buffer'
-import { timingSafeEqual } from 'node:crypto'
+const b64encode = (bytes: Uint8Array): string => btoa(String.fromCharCode(...bytes))
+const b64decode = (str: string): Uint8Array => new Uint8Array([...atob(str)].map(c => c.charCodeAt(0)))
 
 export const hashPassword = async (password: string, salt?: string): Promise<{ hash: string, salt: string }> => {
   const encoder = new TextEncoder()
 
   const saltBytes = salt
-    ? new Uint8Array(Buffer.from(salt, 'base64'))
+    ? b64decode(salt)
     : crypto.getRandomValues(new Uint8Array(16))
 
   const keyMaterial = await crypto.subtle.importKey(
@@ -32,19 +32,23 @@ export const hashPassword = async (password: string, salt?: string): Promise<{ h
   const exportedKey = await crypto.subtle.exportKey('raw', key)
   const hashBuffer = new Uint8Array(exportedKey as ArrayBuffer)
 
-  const hashBase64 = Buffer.from(hashBuffer).toString('base64')
-  const saltBase64 = Buffer.from(saltBytes).toString('base64')
-
-  return { hash: hashBase64, salt: saltBase64 }
+  return { hash: b64encode(hashBuffer), salt: b64encode(saltBytes) }
 }
 
 export const verifyPassword = async (password: string, storedHash: string, storedSalt: string): Promise<boolean> => {
   const { hash } = await hashPassword(password, storedSalt)
 
-  // Constant-time comparison prevents timing attacks on the hash value
-  const a = Buffer.from(hash)
-  const b = Buffer.from(storedHash)
-  return a.length === b.length && timingSafeEqual(a, b)
+  const a = b64decode(hash)
+  const b = b64decode(storedHash)
+
+  if (a.length !== b.length) return false
+
+  // Constant-time XOR — iterates all bytes so timing doesn't reveal where a mismatch occurs
+  let diff = 0
+  for (let i = 0; i < a.length; i++) {
+    diff |= a[i] ^ b[i]
+  }
+  return diff === 0
 }
 
 export const formatStoredPassword = (salt: string, hash: string) => `${salt}:${hash}`
