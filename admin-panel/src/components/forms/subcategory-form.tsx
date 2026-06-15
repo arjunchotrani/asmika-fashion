@@ -174,7 +174,7 @@ export default function SubcategoryForm({ initialData, subcategoryId }: Subcateg
             }}
           />
           <p className="text-[10px] text-zinc-700 font-mono">
-            ashmikafashion.com/subcategories/
+            asmikafashion.com/subcategories/
             <span className={cn('transition-colors', formData.slug ? 'text-zinc-400' : 'text-zinc-700')}>
               {formData.slug || 'your-subcategory-slug'}
             </span>

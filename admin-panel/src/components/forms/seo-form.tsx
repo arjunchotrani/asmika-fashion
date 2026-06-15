@@ -167,7 +167,7 @@ export default function SEOForm({
                 <div>
                   <p className="text-[12px] text-[#bdc1c6] font-medium leading-none mb-0.5">Asmika Fashion</p>
                   <p className="text-[12px] text-[#4caf50] leading-none">
-                    https://ashmikafashion.com › products › <span>{previewSlug}</span>
+                    https://asmikafashion.com › products › <span>{previewSlug}</span>
                   </p>
                 </div>
               </div>

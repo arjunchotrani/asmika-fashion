@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { Loader2, Lock, Mail, Eye, EyeOff, KeyRound, ShieldCheck } from 'lucide-react'
 import { setToken } from '@/lib/api'
 
@@ -105,9 +106,12 @@ export default function LoginPage() {
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8 bg-zinc-900/50 p-8 rounded-2xl border border-zinc-800 backdrop-blur-xl shadow-2xl">
 
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-3">
+          <div className="flex justify-center">
+            <Image src="/asmika-logo.png" alt="Asmika Fashion" width={64} height={64} className="object-contain" />
+          </div>
           <h1 className="text-3xl font-bold tracking-tight text-white uppercase">
-            Ashmika Fashion
+            Asmika Fashion
           </h1>
           <p className="text-zinc-500 text-sm">Admin Panel Portal</p>
         </div>
@@ -282,7 +286,7 @@ export default function LoginPage() {
         )}
 
         <p className="text-center text-zinc-600 text-xs mt-8">
-          &copy; 2026 Ashmika Fashion. All rights reserved.
+          &copy; 2026 Asmika Fashion. All rights reserved.
         </p>
       </div>
     </div>

@@ -206,7 +206,7 @@ export default function CategoryForm({ initialData, categoryId }: CategoryFormPr
                 }}
               />
               <p className="text-[10px] text-zinc-700 font-mono">
-                ashmikafashion.com/categories/
+                asmikafashion.com/categories/
                 <span className={cn('transition-colors', formData.slug ? 'text-zinc-400' : 'text-zinc-700')}>
                   {formData.slug || 'your-category-slug'}
                 </span>

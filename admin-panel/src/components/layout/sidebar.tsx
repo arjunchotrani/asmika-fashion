@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import {
@@ -12,7 +13,6 @@ import {
   Archive,
   LogOut,
   ChevronRight,
-  Diamond,
   X,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -60,7 +60,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
       <div className="p-6 md:p-8 pb-8 md:pb-10 flex items-start justify-between">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <Diamond className="w-5 h-5 text-white animate-pulse" />
+            <Image src="/asmika-logo.png" alt="Asmika Fashion" width={32} height={32} className="object-contain" />
             <h1 className="text-xl font-black text-white tracking-[0.3em] uppercase">
               Asmika
             </h1>

@@ -242,7 +242,7 @@ export default function ProductForm({ initialData, productId }: ProductFormProps
     const colors = variants.map(v => v.color).filter(Boolean)
 
     const lines: string[] = []
-    lines.push(`You are a luxury copywriter for Ashmika Fashion, a premium Indian ethnic textile brand.`)
+    lines.push(`You are a luxury copywriter for Asmika Fashion, a premium Indian ethnic textile brand.`)
     lines.push(``)
     lines.push(`Write 4 distinct product copy outputs for the following specific product. Every sentence must be grounded in the actual product details provided — do NOT use generic filler phrases that could apply to any garment.`)
     lines.push(``)
@@ -411,7 +411,7 @@ export default function ProductForm({ initialData, productId }: ProductFormProps
                   }}
                 />
                 <p className="text-[10px] text-zinc-700 font-mono">
-                  ashmikafashion.com/products/
+                  asmikafashion.com/products/
                   <span className={cn(
                     'transition-colors',
                     formData.slug ? 'text-zinc-400' : 'text-zinc-700'

@@ -292,7 +292,7 @@ export default function ProductsPage() {
 
   const copyUrl = (slug: string) => {
     setActionMenu(null)
-    navigator.clipboard.writeText(`https://ashmikafashion.com/products/${slug}`)
+    navigator.clipboard.writeText(`https://asmikafashion.com/products/${slug}`)
       .then(() => toast.success('URL copied'))
       .catch(() => toast.error('Copy failed'))
   }
@@ -650,7 +650,7 @@ export default function ProductsPage() {
             className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors">
             <Link2 className="w-3.5 h-3.5 shrink-0" /> Copy URL
           </button>
-          <a href={`https://ashmikafashion.com/products/${activeProduct.slug}`} target="_blank" rel="noopener noreferrer"
+          <a href={`https://asmikafashion.com/products/${activeProduct.slug}`} target="_blank" rel="noopener noreferrer"
             onClick={() => setActionMenu(null)}
             className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors">
             <ExternalLink className="w-3.5 h-3.5 shrink-0" /> View on site

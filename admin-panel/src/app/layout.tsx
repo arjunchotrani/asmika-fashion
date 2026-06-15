@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ashmika Fashion Admin",
+  title: "Asmika Fashion Admin",
   description: "Luxury Fashion Admin Panel",
 };
 
