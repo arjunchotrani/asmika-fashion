@@ -108,7 +108,7 @@ export default function LoginPage() {
 
         <div className="text-center space-y-3">
           <div className="flex justify-center">
-            <Image src="/asmika-logo.png" alt="Asmika Fashion" width={64} height={64} className="object-contain" />
+            <Image src="/asmika-logo.png" alt="Asmika Fashion" width={64} height={64} className="object-contain" unoptimized />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-white uppercase">
             Asmika Fashion

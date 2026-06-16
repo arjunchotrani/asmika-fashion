@@ -60,7 +60,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
       <div className="p-6 md:p-8 pb-8 md:pb-10 flex items-start justify-between">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <Image src="/asmika-logo.png" alt="Asmika Fashion" width={32} height={32} className="object-contain" />
+            <Image src="/asmika-logo.png" alt="Asmika Fashion" width={32} height={32} className="object-contain" unoptimized />
             <h1 className="text-xl font-black text-white tracking-[0.3em] uppercase">
               Asmika
             </h1>
