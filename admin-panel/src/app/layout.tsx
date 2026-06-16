@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Asmika Fashion Admin",
   description: "Luxury Fashion Admin Panel",
+  icons: {
+    icon: '/asmika-logo.png',
+    shortcut: '/asmika-logo.png',
+    apple: '/asmika-logo.png',
+  },
 };
 
 export default function RootLayout({
